@@ -1,5 +1,16 @@
 import pymysql
 
+def excuteSelectSql(sql):
+    db = pymysql.connect(host='localhost', user='root', password='123456', database='sgs', charset='utf8')
+    # 查询语句
+    try:
+        cursor = db.cursor()
+        print(sql)
+        cursor.execute(sql)
+        return cursor.fetchone()
+    except Exception:
+        print("selectById查询失败")
+
 #根据账号获取密码
 #return : str类型
 def selectById(id):
@@ -53,19 +64,9 @@ def selectCardById(id):
 #根据账号获取全量信息
 #return : 元组
 def selectDetailById(id):
-    db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
-    # 使用 cursor() 方法创建一个游标对象 cursor
-    cursor = db.cursor()
-    # 查询语句
-    try:
-        cursor = db.cursor()
-        sql = "select * from usertest where id = '" + id + "'"
-        print(sql)
-        cursor.execute(sql)
-        result = cursor.fetchone()
-        return result
-    except Exception:
-        print("selectCardById查询失败")
+    sql = f"select * from usertest where id = '{id}'".format(id)
+    result = excuteSelectSql(sql)
+    return result
 
 #根据时间获取账号和密码
 #return : [[账号,密码],[账号,密码]]
@@ -89,19 +90,9 @@ def selectUserByData(date,line):
 #根据时间获取当日创建账号数量
 #return : int
 def selectNumByDate(date):
-    db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
-    # 使用 cursor() 方法创建一个游标对象 cursor
-    cursor = db.cursor()
-    # 查询语句
-    try:
-        cursor = db.cursor()
-        sql = "select count(*) from usertest where isCost = 0 and date = '" + date + "'"
-        print(sql)
-        cursor.execute(sql)
-        result = cursor.fetchone()
-        return result[0]
-    except Exception:
-        print("selectNumByDate查询失败")
+    sql = f"select count(*) from usertest where isCost = 0 and date = '{date}'".format(date)
+    result = excuteSelectSql(sql)
+    return result[0]
 
 #获取指定日期内未浇水账号
 #return : [[账号,密码],[账号,密码]]
