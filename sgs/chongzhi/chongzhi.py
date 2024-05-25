@@ -1,7 +1,7 @@
 import xlrd
 import time
 
-from sgs.chongzhi.Utils.taskById import mainWork
+from sgs.chongzhi.Utils.taskById import mainWork2
 from sgs.common.dataCheck import dataCheck
 
 from sql.select import selectUserByData, selectNumByDate
@@ -12,7 +12,7 @@ if __name__ == '__main__':
     #打开文件
     wb = xlrd.open_workbook(filename=file)
     index = input('选择单元格索引: 0.做一次 1.注册 2. 3.充值 4.第2-7天 5.日常\n')
-    date = input('输入账号创建的时间\n')
+    date = '2024-04-20'
     num = input('要充值多少个:-1代表创建时间内的账号全部充值\n')
     if num == "-1":
         num = selectNumByDate(date)
@@ -30,11 +30,11 @@ if __name__ == '__main__':
             pre = time.time()
             id = data[j][0]
             print("开始充值第" + str((j + 1)) + "个号: id为" + id)
-            mainWork(int(i), sheet1,data[j])
+            mainWork2(int(i), sheet1, data[j])
             #更新完成标记
             updateCost(id)
-            #更新天数
-            updateDay(id)
+            # #更新天数
+            # updateDay(id)
             print("已成功充值账号: id为" + id)
             now = time.time()
             print("当前账号耗时:" + str(now - pre))

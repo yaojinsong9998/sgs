@@ -16,7 +16,7 @@ def processFuction(type,data):
 def getYuanBaoSum():
     while True:
         #先找到参照图像对应位置 由chongzhi.py作为参考点找路径
-        location = pyautogui.locateOnScreen('images/jiahao2.png', confidence=0.8)
+        location = pyautogui.locateOnScreen('images/shangchengjia.png', confidence=0.8)
         if location is not None:
             x = location.left
             y = location.top

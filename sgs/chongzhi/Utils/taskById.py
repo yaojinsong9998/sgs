@@ -1,6 +1,7 @@
 import pyautogui
 import time
 import pyperclip
+import pydirectinput
 
 #任务
 from sgs.chongzhi.Utils.input import inputConfig
@@ -8,7 +9,7 @@ from sgs.chongzhi.Utils.mouse import mouseClick
 from sgs.chongzhi.Utils.processFunction import processFuction
 
 
-def mainWork(i,sheet1,data):
+def mainWork2(i, sheet1, data):
     while i < sheet1.nrows:
         print("开始第" + str(i) + "步:")
         #取本行指令的操作类型
@@ -39,8 +40,8 @@ def mainWork(i,sheet1,data):
             inputValue = inputConfig(type,data)
             t = 0
             while t < 20:
-                pyautogui.keyDown('backspace')
-                pyautogui.keyUp('backspace')
+                pydirectinput.keyDown('backspace')
+                pydirectinput.keyUp('backspace')
                 t += 1
             pyperclip.copy(inputValue)
             pyautogui.hotkey('ctrl','v')
@@ -71,4 +72,25 @@ def mainWork(i,sheet1,data):
             #执行方法
             processFuction(type, data)
             time.sleep(0.2)
+        #8 校验点
+        elif cmdType.value == 8.0:
+            # 取图片名称
+            img = "images/" + sheet1.row(i)[1].value
+            reTry = 0
+            res = mouseClick(1, "left", img, reTry)
+            if res == 'break':
+                return 'break'
+            print("单击左键", img)
         i += 1
+    return None
+
+# mouseClick(1,"left","zhinengfuzhu.png",1)
+# inputValue = "ads"
+# time.sleep(2)
+# t = 0
+# while t < 20:
+#     pydirectinput.keyDown('backspace')
+#     pydirectinput.keyUp('backspace')
+#     t += 1
+# pyperclip.copy(inputValue)
+# pyautogui.hotkey('ctrl', 'v')

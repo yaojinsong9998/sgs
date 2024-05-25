@@ -2,6 +2,7 @@ import pyautogui
 import time
 import xlrd
 import pyperclip
+import pydirectinput
 
 from sgs.common.input import inputConfig
 from sgs.common.judge import judge
@@ -48,9 +49,11 @@ def mainWork(i,sheet1,map,num,target):
             #输入的值
             inputValue = inputConfig(type)
             pyperclip.copy(inputValue)
-            pyautogui.hotkey('ctrl','v')
-            time.sleep(0.5)
-            print("输入:",inputValue)
+            time.sleep(0.2)
+            print("输入", inputValue)
+            pyautogui.hotkey('ctrl', 'v', interval=0.1)
+            time.sleep(0.2)
+            # pyautogui.write(inputValue, interval=0.1)
         # 4.1代表先删除当前编辑页再输入
         elif cmdType.value == 4.1:
             #输入类型
@@ -59,8 +62,10 @@ def mainWork(i,sheet1,map,num,target):
             inputValue = inputConfig(type)
             t = 0
             while t < 20:
-                pyautogui.keyDown('backspace')
-                pyautogui.keyUp('backspace')
+                # pyautogui.keyDown('backspace')
+                # pyautogui.keyUp('backspace')
+                pydirectinput.keyDown('backspace')
+                pydirectinput.keyUp('backspace')
                 t += 1
             pyperclip.copy(inputValue)
             pyautogui.hotkey('ctrl','v')
@@ -88,3 +93,4 @@ def mainWork(i,sheet1,map,num,target):
             judge(img,reTry)
             print()
         i += 1
+

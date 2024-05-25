@@ -1,5 +1,6 @@
 import random
 import time
+import requests
 
 from sql.insert import insertNewUser
 from sql.select import selectById, selectLastId, selectCardById
@@ -11,9 +12,11 @@ def inputConfig(type):
     if type == "zhucemingzi":
         id = idRandom()
         password = "sgs" + str(random.randint(100000, 999999))
+        # ip = requests.get('https://myip.ipip.net').text
+        ip = 'shanghai'
         date = getFormatTime()
         #保存到数据库
-        insertNewUser(id,password,date)
+        insertNewUser(id,password,date,ip)
         return id
     elif type == "zhucemima":
         id = selectLastId()
@@ -23,6 +26,8 @@ def inputConfig(type):
         card = cardRandom()
         cardId = card[0]
         cardName = card[1]
+        # cardId = '370404200409083313'
+        # cardName = '姜圣超'
         id = selectLastId()
         #更新身份证信息
         updateCard(id,cardId,cardName)
@@ -63,3 +68,6 @@ def cardRandom():
     index = random.randint(0, last - 1)
     card = selectByIndex(index)
     return card
+
+ip = requests.get('https://myip.ipip.net').text
+print(ip)

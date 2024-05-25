@@ -31,10 +31,11 @@ def updateNetWork():
 
 
 if __name__ == '__main__':
-    file = 'cmd2.xls'
+    #文件名
+    file = 'zhuce.xls'
     #打开文件
     wb = xlrd.open_workbook(filename=file)
-    index = input('选择单元格索引: 0.做一次 1.注册 2. 3.充值 4.第2-7天 5.日常\n')
+    index = input('选择单元格索引: 0.做一次 1.注册\n')
     date = getTodayDate()
     todayNum = selectNumByDate(date)
     print('今日已注册' + str(todayNum) + "个账号")
@@ -43,14 +44,14 @@ if __name__ == '__main__':
     #通过索引获取表格sheet页
     sheet1 = wb.sheet_by_index(int(index))
     print('准备进行三国杀账号注册')
-    #数据检查
+    #数据检查f
     checkCmd = dataCheck(sheet1)
     begin = time.time()
     j = 0
     if checkCmd:
         while j < int(num):
-            #满6个切网络
-            if j != 0 and j % 6 == 0:
+            #满10个切网络
+            if j != 0 and j % 10 == 0:
                 print("等待切换网络...")
                 updateNetWork()
                 time.sleep(1)

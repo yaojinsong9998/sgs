@@ -41,3 +41,13 @@ def mouseClick(clickTimes,lOrR,img,reTry):
                 print("重复")
             i += 1
             time.sleep(0.5)
+    elif reTry == 0:
+        time.sleep(3)
+        location = pyautogui.locateCenterOnScreen(img, confidence=conf)
+        if location is not None:
+            pyautogui.click(location.x, location.y, clicks=clickTimes, interval=0.2, duration=0.2, button=lOrR)
+            return "break"
+        else:
+            print("在3秒内未找到")
+        time.sleep(0.1)
+    return None

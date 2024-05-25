@@ -19,7 +19,7 @@ def dataCheck(sheet1):
         cmdType = sheet1.row(i)[0]
         if cmdType.ctype != 2 or (cmdType.value != 1.0 and cmdType.value != 2.0 and cmdType.value != 3.0
         and cmdType.value != 4.0 and cmdType.value != 4.1 and cmdType.value != 4.2 and cmdType.value != 5.0 and cmdType.value != 6.0
-        and cmdType.value != 7.0):
+        and cmdType.value != 7.0 and cmdType.value != 8.0):
             print('第',i+1,"行,第1列数据有毛病")
             checkCmd = False
         # 第2列 内容检查

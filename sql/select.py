@@ -84,6 +84,8 @@ def selectUserByData(date,line):
     except Exception:
         print("selectUserByData查询失败")
 
+# print(selectUserByData('2022-07-27',10))
+
 #根据时间获取当日创建账号数量
 #return : int
 def selectNumByDate(date):
@@ -118,6 +120,23 @@ def selectDailyNum(date):
     except Exception:
         print("selectDailyNum查询失败")
 
+# #获取指定账号
+# #return : [[账号,密码],[账号,密码]]
+# def selectById(id):
+#     db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
+#     # 使用 cursor() 方法创建一个游标对象 cursor
+#     cursor = db.cursor()
+#     # 查询语句
+#     try:
+#         cursor = db.cursor()
+#         sql = "select id,password from usertest where id = '" + id + "'"
+#         print(sql)
+#         cursor.execute(sql)
+#         result = cursor.fetchall()
+#         return result
+#     except Exception:
+#         print("selectDailyNum查询失败")
+
 #获取2-7天账号
 #return : [[账号,密码],[账号,密码]]
 def selectNum2To7(date):
@@ -151,6 +170,108 @@ def selectNum2To7(date):
         return result
     except Exception:
         print("selectNum2To7查询失败")
+
+#获取指定天注册有效账号
+#return : [[账号,密码],[账号,密码]]
+def selectByDate(date,day):
+    db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    # 查询语句
+    try:
+        cursor = db.cursor()
+        if date:
+            sql = "select id,password from usertest where is_delete is null and `status` is null and day = 0 and isFinish = 1 and date = '" + date + "'"
+        else:
+            # sql = f"select id,password from usertest " \
+            #       f"where is_delete is null and `status` is null and day = {day} " \
+            #       f"and isFinish = 1".format(day)
+            sql = f"select id,password from usertest " \
+                  f"where is_delete is null and `status` is null and day = {day} " \
+                  f"and isFinish = 1 and ((cardName = '姚劲嵩' or cardName = '王中云' or cardName = '姚纯洲' or cardName = '姜圣超') or is_True=1) ".format(day)
+        print(sql)
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
+    except Exception:
+        print("selectByDate查询失败")
+
+#获取指定天注册有效账号
+#return : [[账号,密码],[账号,密码]]
+def selectYjs(date,day):
+    db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    # 查询语句
+    try:
+        cursor = db.cursor()
+        # if date:
+        #     sql = "select id,password from usertest where is_delete is null and `status` is null and day = 7 and isFinish = 1 and date = '" + date + "'"
+        # else:
+            # sql = f"select id,password from usertest " \
+            #       f"where is_delete is null and `status` is null and day = {day} " \
+            #       f"and isFinish = 1".format(day)
+        if day < 7:
+            sql = f"select id,password from usertest " \
+                  f"where is_delete is null and `status` is null and day = {day} and day < 7 " \
+                  f"and isFinish = 1 and ((cardName = '姚劲嵩' or cardName = '王中云' or cardName = '姚纯洲' or cardName = '姜圣超')  or is_True=1)and updateTime < '{date}'" \
+                .format(day, date)
+        else:
+            sql = f"select id,password from usertest " \
+              f"where is_delete is null and `status` is null and day >= {day} " \
+              f"and isFinish = 1 and ((cardName = '姚劲嵩' or cardName = '王中云' or cardName = '姚纯洲' or cardName = '姜圣超')  or is_True=1)and updateTime < '{date}'"\
+             .format(day,date)
+        print(sql)
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
+    except Exception:
+        print("selectByDate查询失败")
+
+#获取指定天注册有效账号
+#return : [[账号,密码],[账号,密码]]
+def selectFirstYjs(date,day):
+    db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    # 查询语句
+    try:
+        start = date + ' 00:00:00'
+        end = date + ' 23:59:59'
+        cursor = db.cursor()
+        sql = f"select id,password from usertest " \
+          f"where is_delete is null and `status` is null " \
+          f"and isFinish = 1  and addTime > '{start}' and addTime < '{end}'" \
+              f"and yuanbaoSum is null"\
+         .format(start,end)
+        print(sql)
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
+    except Exception:
+        print("selectByDate查询失败")
+
+#获取指定天注册有效账号
+#return : [[账号,密码],[账号,密码]]
+def checkZhanghao(date):
+    db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    # 查询语句
+    try:
+        cursor = db.cursor()
+        if date:
+            sql = "select id,password from usertest where `status` is null and day = 2 and isFinish = 1 and date = '" + date + "'"
+        else:
+            sql = "select id,password from usertest where `status` = 2 and isFinish = 1 and updateTime < '2024-03-17'"
+        print(sql)
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
+    except Exception:
+        print("selectByDate查询失败")
+
+
 
 def select():
     db = pymysql.connect(host='localhost',user='root',password='123456',database='sgs',charset='utf8')
