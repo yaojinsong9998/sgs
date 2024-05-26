@@ -18,7 +18,6 @@ def renwu():
     file = 'xls/renwu.xls'
     # 打开文件
     wb = xlrd.open_workbook(filename=file)
-    index = input('选择单元格索引: 0.做任务')
 
     data = selectByDate(None, 0)
     num = str(len(data))
@@ -26,7 +25,7 @@ def renwu():
 
     i = 0
     # 通过索引获取表格sheet页
-    sheet1 = wb.sheet_by_index(int(index))
+    sheet1 = wb.sheet_by_index(int(0))
     print('准备执行')
     # 定时执行
     # time.sleep(4200)
