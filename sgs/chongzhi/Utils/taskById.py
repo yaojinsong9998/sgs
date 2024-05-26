@@ -9,14 +9,14 @@ from sgs.chongzhi.Utils.mouse import mouseClick
 from sgs.chongzhi.Utils.processFunction import processFuction
 
 
-def mainWork2(i, sheet1, data):
+def mainWork2(i, sheet1, data,image_path = "images/"):
     while i < sheet1.nrows:
         print("开始第" + str(i) + "步:")
         #取本行指令的操作类型
         cmdType = sheet1.row(i)[0]
         if cmdType.value == 1.0:
-            #取图片名称
-            img = "images/" +sheet1.row(i)[1].value
+            # 取图片名称
+            img = image_path + sheet1.row(i)[1].value
             reTry = 1
             if sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
@@ -75,7 +75,7 @@ def mainWork2(i, sheet1, data):
         #8 校验点
         elif cmdType.value == 8.0:
             # 取图片名称
-            img = "images/" + sheet1.row(i)[1].value
+            img = image_path + sheet1.row(i)[1].value
             reTry = 0
             res = mouseClick(1, "left", img, reTry)
             if res == 'break':
