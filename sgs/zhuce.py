@@ -1,8 +1,8 @@
 import xlrd
 import time
 
-from sgs.chongzhi.Utils.taskById import mainWork2
-from sgs.common.dataCheck import dataCheck
+from sgs.common.taskById import mainWork2
+from sgs.utils.dataCheck import dataCheck
 from sgs.common.task import mainWork
 from sgs.renwu import renwu
 from sql.select import selectLastId, selectDetailById, selectNumByDate

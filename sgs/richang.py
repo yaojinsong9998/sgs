@@ -3,7 +3,7 @@ import time
 import xlrd
 
 from sgs.chongzhi.Utils.taskById import mainWork2
-from sgs.utils.dataCheck import dataCheck
+from sgs.common.dataCheck import dataCheck
 from sql.select import selectByDate, checkZhanghao, selectYjs, selectFirstYjs
 from sql.update import updateDay, updateStatus
 
@@ -37,7 +37,7 @@ def runOne():
         date = '2024-04-15'
         data = selectYjs(date, 7)
     if selectItem == 8:
-        date = '2024-05-25'
+        date = '2024-06-01'
         data = selectFirstYjs(date, 1)
     if selectItem == 9:
         date = '2024-04-13'
@@ -97,7 +97,8 @@ def runBatch(date):
     # 打开文件
     wb = xlrd.open_workbook(filename=file)
     # selectItems = [7,9, 10, 11, 12, 13,14]
-    selectItems = [7, 9,10,11, 12, 13,14]
+    # selectItems = [7, 9,10,11, 12, 13,14]
+    selectItems = [7, 14, 13, 12, 11, 10, 9]
     for selectItem in selectItems:
         if selectItem == 7:
             data = selectYjs(date, 7)
@@ -143,8 +144,9 @@ def runBatch(date):
                 j += 1
         else:
             print('表格没有此单元格')
+
 if __name__ == '__main__':
-    runOne()
-    # time.sleep(800)
-    # date = '2024-05-25'
-    # runBatch(date)
+    # runOne()
+    time.sleep(2400)
+    date = '2024-06-02'
+    runBatch(date)

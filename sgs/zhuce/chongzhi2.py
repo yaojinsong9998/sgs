@@ -2,7 +2,7 @@ import xlrd
 import time
 
 from sgs.chongzhi.Utils.taskById import mainWork2
-from sgs.common.dataCheck import dataCheck
+from sgs.utils.dataCheck import dataCheck
 
 from sql.select import selectUserByData, selectNumByDate
 from sql.update import updateCost, updateDay

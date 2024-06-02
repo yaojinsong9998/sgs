@@ -80,20 +80,10 @@ def selectDetailById(id):
 # 根据时间获取账号和密码
 # return : [[账号,密码],[账号,密码]]
 def selectUserByData(date, line):
-    db = pymysql.connect(host='localhost', user='root', password='123456', database='sgs', charset='utf8')
-    # 使用 cursor() 方法创建一个游标对象 cursor
-    cursor = db.cursor()
-    # 查询语句
-    try:
-        cursor = db.cursor()
-        sql = "select id,password from usertest where date = '" + date + "' and isCost = 0 order by addtime limit " + str(
-            line)
-        print(sql)
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        return result
-    except Exception:
-        print("selectUserByData查询失败")
+    sql = f"select id,password from usertest where date = '{date}' and isCost = 0 " \
+          f"order by addtime limit {line}".format(date,line)
+    result = excuteSelectSql(sql,"all")
+    return result
 
 
 # print(selectUserByData('2022-07-27',10))

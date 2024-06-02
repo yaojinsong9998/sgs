@@ -1,7 +1,7 @@
 import xlrd
 import time
 
-from sgs.common.dataCheck import dataCheck
+from sgs.utils.dataCheck import dataCheck
 from sgs.common.task import mainWork
 from sgs.zhuce.zhuceUtils import map
 from sql.select import selectLastId, selectDetailById, selectNumByDate, selectByDate
