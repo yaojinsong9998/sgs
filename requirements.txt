@@ -1,0 +1,7 @@
+ddddocr==1.4.3
+PyAutoGUI==0.9.50
+PyDirectInput==1.0.4
+PyMySQL==1.0.2
+pyperclip==1.8.2
+Requests==2.32.3
+xlrd==1.2.0

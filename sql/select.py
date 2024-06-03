@@ -19,7 +19,7 @@ def excuteSelectSql(sql, resultType='one'):
 # 根据账号获取密码
 # return : str类型
 def selectById(id):
-    sql = "select password from usertest where id = '{id}'".format(id)
+    sql = f"select password from usertest where id = '{id}'".format(id)
     result = excuteSelectSql(sql)
     return result[0]
 
@@ -35,7 +35,7 @@ def selectLastId():
 # 根据账号获取身份证信息
 # return : 元组
 def selectCardById(id):
-    sql = "select cardId,cardName from usertest where id = '{id}'".format(id)
+    sql = f"select cardId,cardName from usertest where id = '{id}'".format(id)
     result = excuteSelectSql(sql)
     return result
 
@@ -69,7 +69,7 @@ def selectNumByDate(date):
 # return : [[账号,密码],[账号,密码]]
 def selectByDate(date, day):
     if date:
-        sql = "select id,password from usertest " \
+        sql = f"select id,password from usertest " \
               "where is_delete is null and `status` is null and day = 0 " \
               "and isFinish = 1 and date = '{date}".format(date)
     else:
@@ -93,6 +93,14 @@ def selectYjs(date, day):
               f"where is_delete is null and `status` is null and day >= {day} " \
               f"and isFinish = 1 and ((cardName = '姚劲嵩' or cardName = '王中云' or cardName = '姚纯洲' or cardName = '姜圣超')  or is_True=1)and updateTime < '{date}'" \
             .format(day, date)
+    result = excuteSelectSql(sql, "all")
+    return result
+
+def selectYjs2(date, day):
+    sql = f"select id,password from usertest " \
+          f"where is_delete is null and `status` is null and day >= {day} and day < 30 " \
+          f"and isFinish = 1 and ((cardName = '姚劲嵩' or cardName = '王中云' or cardName = '姚纯洲' or cardName = '姜圣超')  or is_True=1)and updateTime < '{date}'" \
+        .format(day, date)
     result = excuteSelectSql(sql, "all")
     return result
 

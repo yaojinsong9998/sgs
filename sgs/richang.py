@@ -4,7 +4,7 @@ import xlrd
 
 from sgs.common.taskById import mainWork2
 from sgs.utils.dataCheck import dataCheck
-from sql.select import selectByDate, selectYjs, selectFirstYjs
+from sql.select import selectByDate, selectYjs, selectFirstYjs, selectYjs2
 from sql.update import updateDay, updateStatus
 
 
@@ -20,7 +20,7 @@ def runOne():
     wb = xlrd.open_workbook(filename=file)
     index = input('选择单元格索引: 0.第一天（月卡版) 1.第二天（月卡版) 2.第三天（月卡版) 3.第四天(月卡版)'
                   '4.第五天(月卡版) 5.第六天(月卡版) 6.第七天(月卡版) 7.七天后（月卡版)')
-    date = '2024-06-02'
+    date = '2024-06-03'
     selectItem = int(index)
     if selectItem == 0:  # 第一天
         data = selectFirstYjs(date)
@@ -77,15 +77,16 @@ def runBatch(date):
     wb = xlrd.open_workbook(filename=file)
 
     selectItems = [1, 2, 3, 4, 5, 6, 7, 8]
-    sum = len(selectYjs(date, 7))
+    sum = len(selectYjs2(date, 7))
     k = 0
-    for selectItem in selectItems:
-        sum += len(selectYjs(date, selectItem))
+    sum = sum + len(selectYjs(date, 1)) + len(selectYjs(date, 2)) + len(selectYjs(date, 3)) + \
+          len(selectYjs(date, 4)) + len(selectYjs(date, 5)) + len(selectYjs(date, 6)) + \
+          len(selectYjs(date, 30))
     print("一共有" + str(sum) + "个天账号")
 
     for selectItem in selectItems:
         if selectItem == 7:  # 七天后
-            data = selectYjs(date, 7)
+            data = selectYjs2(date, 7)
         if selectItem == 1:  # 第二天
             data = selectYjs(date, 1)
         if selectItem == 2:  # 第三天
@@ -136,5 +137,5 @@ def runBatch(date):
 if __name__ == '__main__':
     runOne()
     # time.sleep(2400)
-    # date = '2024-06-02'
+    # date = '2024-06-03'
     # runBatch(date)
