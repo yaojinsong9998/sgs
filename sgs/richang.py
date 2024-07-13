@@ -20,7 +20,7 @@ def runOne():
     wb = xlrd.open_workbook(filename=file)
     index = input('选择单元格索引: 0.第一天（月卡版) 1.第二天（月卡版) 2.第三天（月卡版) 3.第四天(月卡版)'
                   '4.第五天(月卡版) 5.第六天(月卡版) 6.第七天(月卡版) 7.七天后（月卡版)')
-    date = '2024-06-03'
+    date = '2024-07-09'
     selectItem = int(index)
     if selectItem == 0:  # 第一天
         data = selectFirstYjs(date)
@@ -77,12 +77,34 @@ def runBatch(date):
     wb = xlrd.open_workbook(filename=file)
 
     selectItems = [1, 2, 3, 4, 5, 6, 7, 8]
-    sum = len(selectYjs2(date, 7))
+    num8to30 = len(selectYjs2(date, 7)) # 当前天 为第八到三十天的账号数量
     k = 0
-    sum = sum + len(selectYjs(date, 1)) + len(selectYjs(date, 2)) + len(selectYjs(date, 3)) + \
-          len(selectYjs(date, 4)) + len(selectYjs(date, 5)) + len(selectYjs(date, 6)) + \
-          len(selectYjs(date, 30))
+
+    num2 = len(selectYjs(date, 1)) # 当前天 为第二天签到的账号数量
+    num3 = len(selectYjs(date, 2)) # 当前天 为第三天签到的账号数量
+    num4 = len(selectYjs(date, 3)) # 当前天 为第四天签到的账号数量
+    num5 = len(selectYjs(date, 4)) # 当前天 为第五天签到的账号数量
+    num6 = len(selectYjs(date, 5)) # 当前天 为第六天签到的账号数量
+    num7 = len(selectYjs(date, 6))  # 当前天 为第七天签到的账号数量
+    numgt30 = len(selectYjs(date, 30)) # 当前天 为大于等于三十天的账号数量
+
+    sum = num2 + num3 + num4 + num5 + num6 + num7 + num8to30 + numgt30
+    print(f"第二天账号数量 : {num2}")
+    print(f"第三天账号数量 : {num3}")
+    print(f"第四天账号数量 : {num4}")
+    print(f"第五天账号数量 : {num5}")
+    print(f"第六天账号数量 : {num6}")
+    print(f"第七天账号数量 : {num7}")
+    print(f"第八到三十天账号数量 : {num8to30}")
+    print(f"第三十天及以后天账号数量 : {numgt30}")
     print("一共有" + str(sum) + "个天账号")
+
+    sumSecondTime = num2 * 120  + num3 * 120 + num4 * 120 + num5 * 120 + num6 * 150 \
+                    + num7 * 120 + num8to30 * 100 + numgt30 * 90
+    hourTime = sumSecondTime // 3600
+    minuteTime = (sumSecondTime % 3600) // 60
+
+    print(f"预计总耗时{sumSecondTime}秒,合计{hourTime}小时{minuteTime}分钟")
 
     for selectItem in selectItems:
         if selectItem == 7:  # 七天后
@@ -100,7 +122,7 @@ def runBatch(date):
         if selectItem == 6:  # 第七天
             data = selectYjs(date, 6)
         if selectItem == 8:  # 第三十天后
-            data = selectYjs(date, 30)
+            data = selectYjs(date, 30) # 88s
         print(f"共有" + str(len(data)) + "个天账号")
         num = len(data)
         i = 1
@@ -123,8 +145,7 @@ def runBatch(date):
                     updateStatus(id)
                     continue
                 # 更新天数
-                if selectItem != 8:
-                    updateDay(id)
+                updateDay(id)
                 print("已成功浇水账号: id为" + id)
                 now = time.time()
                 print("当前账号耗时:" + str(now - pre))
@@ -135,7 +156,7 @@ def runBatch(date):
 
 
 if __name__ == '__main__':
-    runOne()
-    # time.sleep(2400)
-    # date = '2024-06-03'
-    # runBatch(date)
+    # runOne()
+    # time.sleep(3600)
+    date = '2024-07-13'
+    runBatch(date)
