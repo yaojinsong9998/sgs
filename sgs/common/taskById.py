@@ -100,7 +100,12 @@ def mainWork2(i, sheet1, data,image_path = "images/"):
             waitTime = sheet1.row(i)[1].value
             time.sleep(waitTime)
             print("等待",waitTime,"秒")
-        #7 代表执行方法
+        #6代表滚轮
+        elif cmdType.value == 6.0:
+            scroll = sheet1.row(i)[1].value
+            pyautogui.scroll(int(scroll))
+            print("滚轮滑动", int(scroll), "距离")
+            #7 代表执行方法
         elif cmdType.value == 7.0:
             #取方法名
             type = sheet1.row(i)[1].value

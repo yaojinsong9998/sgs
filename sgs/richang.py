@@ -20,7 +20,7 @@ def runOne():
     wb = xlrd.open_workbook(filename=file)
     index = input('选择单元格索引: 0.第一天（月卡版) 1.第二天（月卡版) 2.第三天（月卡版) 3.第四天(月卡版)'
                   '4.第五天(月卡版) 5.第六天(月卡版) 6.第七天(月卡版) 7.七天后（月卡版)')
-    date = '2024-07-09'
+    date = '2024-07-13'
     selectItem = int(index)
     if selectItem == 0:  # 第一天
         data = selectFirstYjs(date)
@@ -72,7 +72,7 @@ def runOne():
 
 
 def runBatch(date):
-    file = 'xls/richang.xls'
+    file = 'xls/richang4.xls'
     # 打开文件
     wb = xlrd.open_workbook(filename=file)
 
@@ -157,6 +157,6 @@ def runBatch(date):
 
 if __name__ == '__main__':
     # runOne()
-    # time.sleep(3600)
-    date = '2024-07-13'
+    # time.sleep(6000)
+    date = '2024-07-14'
     runBatch(date)
