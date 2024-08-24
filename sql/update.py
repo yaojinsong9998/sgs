@@ -31,6 +31,11 @@ def updateFinish(id):
     sql = f"update usertest set isFinish = 1,is_True = 1 where id = '{id}'".format(id);
     excuteUpdateSql(sql)
 
+# 更新完成位 （新手任务是否完成）
+def updateFinishByPhone(id):
+    sql = f"update usertest set isFinish = 1,is_True = 1,is_Phone=1 where id = '{id}'".format(id);
+    excuteUpdateSql(sql)
+
 
 # 更新身份证信息
 def updateCard(id, cardId, cardName):
@@ -61,4 +66,9 @@ def updateYuanBaoSum(id, yuanbaoSum):
 # 更新天数
 def updateStatus(id):
     sql = f"update usertest set `status` = 2,`check` = `check` + 1 where id = '{id}'".format(id)
+    excuteUpdateSql(sql)
+
+# 更新活动标志位
+def updateHuoDong(id):
+    sql = f"update usertest set huodong = 1 where id = '{id}'".format(id);
     excuteUpdateSql(sql)

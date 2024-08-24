@@ -117,3 +117,14 @@ def selectFirstYjs(date):
         .format(start, end)
     result = excuteSelectSql(sql, "all")
     return result
+
+
+# 获取未完成活动的账号
+def selectHuoDong():
+    sql = f"select id,password from usertest where huodong = 0 and updateTime > '2024-07-17 00:00:00'"
+    result = excuteSelectSql(sql, "all")
+    return result
+
+def selectDaochu(sql):
+    result = excuteSelectSql(sql, "all")
+    return result

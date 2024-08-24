@@ -51,7 +51,7 @@ def mouseClick2(clickTimes,lOrR,img,reTry):
     print("正在寻找:" + img)
     conf = 0.8
     #点一次 在reTry绝对值秒内找不到则结束  TODO昵称可能会重复 通过改4次名字降低重复率
-    if reTry <= -2:
+    if reTry <= -1.1:
         time.sleep(abs(reTry))
         location = pyautogui.locateCenterOnScreen(img, confidence=conf)
         if location is not None:
